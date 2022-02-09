@@ -1,0 +1,50 @@
+﻿.header {
+    background-color: #EAE9E4;
+}
+
+body {
+    /*font-family: 'Ubuntu', sans-serif*/
+    font-family: 'Roboto', sans-serif;
+    background-color: #D09E49;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.red {
+    background-color: #CD301F;
+    color: #EAE9E4;
+}
+
+.green {
+    background-color: #3A5A0D;
+    color: #EAE9E4;
+}
+
+.grey {
+    background-color: darkslategrey;
+    color: #EAE9E4;
+}
+
+.beige {
+    background-color: #16130E;
+}
+
+.navibar{
+    height: 5em;
+}
+
+.navpmargin{
+    margin-left: 10em;
+    margin-right: 10em;
+}
+
+.main {
+
+    border-radius: 2em;
+    background-color: #EAE9E4;
+    margin-top: 2em;
+}

@@ -1,0 +1,26 @@
+﻿@model PizzaREAL.ViewModels.UserLoginRequest
+
+<p>@ViewBag.Message</p>
+
+<form asp-controller="Account" asp-action="Login" method="post">
+  <fieldset>
+    <legend>Logga in</legend>
+
+    <div class="form-group">
+      <label asp-for="Username" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="Username" maxlength="20"/>
+      <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Password" class="form-label mt-4"></label>
+      <input type="password" class="form-control" asp-for="Password" maxlength="20"/>
+      <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Logga in</button>
+
+  </fieldset>
+</form>
+

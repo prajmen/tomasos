@@ -1,0 +1,74 @@
+﻿@model PizzaREAL.ViewModels.UserUpdateRequest
+
+<p>@ViewBag.Message</p>
+
+
+
+<form asp-controller="Account" asp-action="Update" method="post">
+  <fieldset>
+    <legend>Ändra konto</legend>
+
+    <div class="form-group">
+      <label asp-for="Name" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="Name" maxlength="100"/>
+      <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Username" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="Username" maxlength="20"/>
+      <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="CurrentPassword" class="form-label mt-4"></label>
+      <input type="password" class="form-control" asp-for="CurrentPassword" maxlength="20"/>
+      <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="NewPassword" class="form-label mt-4"></label>
+      <input type="password" class="form-control" asp-for="NewPassword" maxlength="20"/>
+      <span asp-validation-for="NewPassword" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Address" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="Address" maxlength="50"/>
+      <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="PostCode" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="PostCode" maxlength="20"/>
+      <span asp-validation-for="PostCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="City" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="City" maxlength="100"/>
+      <span asp-validation-for="City" class="text-danger"></span>      
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Email" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="Email" maxlength="50"/>
+      <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="PhoneNumber" class="form-label mt-4"></label>
+      <input type="text" class="form-control" asp-for="PhoneNumber" maxlength="50"/>
+      <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    
+
+    <br />
+    <a asp-controller="Home" asp-action="Index" class="btn grey">Tillbaka</a>
+    <button type="submit" class="btn green">Ändra konto</button>
+    <a asp-controller="Account" asp-action="Delete" class="btn red">Ta bort konto</a>
+
+  </fieldset>
+</form>
+

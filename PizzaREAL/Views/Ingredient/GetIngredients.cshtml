@@ -1,0 +1,63 @@
+﻿@model List<PizzaREAL.Models.Ingredient>
+
+@if (ViewBag.Ingredient != null)
+{
+    <div class="alert alert-dismissible green">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        @ViewBag.Ingredient
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            <h3>Ingredienser </h3>
+        </th>
+        <th class="float-right extend">
+            <a asp-controller="Ingredient" asp-action="AddIngredient" class="float-left btn green">
+                Lägg till ingrediens
+            </a>
+        </th>
+    </tr>
+</table>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">Ändra</th>
+            <th scope="col">Ta bort</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ingredient in Model)
+        {
+            <tr>
+                <th scope="row">@ingredient.IngredientName</th>
+
+                <td>
+                    <a asp-controller="Ingredient" asp-action="UpdateIngredient" method="get" class="btn grey" asp-route-id=@ingredient.IngredientId>
+                        <i class="bi bi-pencil"></i> Ändra namn
+                    </a>
+
+
+                </td>
+                <td>
+                    @if (ingredient.Dishes.Count == 0)
+                    {
+
+                        <a asp-controller="Ingredient" asp-action="RemoveIngredient" method="get" class="btn red" asp-route-id=@ingredient.IngredientId>
+                            <i class="bi bi-trash"></i> Ta bort
+                        </a>
+                    }
+                    else
+                    {
+                        <p>Ingrediensen finns i minst en maträtt</p>
+                    }
+
+                </td>
+
+            </tr>
+        }
+
+</table>

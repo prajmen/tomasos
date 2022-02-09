@@ -1,0 +1,29 @@
+﻿@model PizzaREAL.Models.Ingredient
+
+@if (ViewBag.Ingredient != null)
+{
+    <div class="alert alert-dismissible green">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        @ViewBag.Ingredient
+    </div>
+}
+<form asp-controller="Ingredient" asp-action="AddIngredient" method="post">
+
+
+    <fieldset>
+        <legend>Lägg till ingrediens</legend>
+
+        <div class="form-group">
+            <label asp-for="IngredientName" class="form-label mt-4"></label>
+            <input type="text" class="form-control" asp-for="IngredientName" maxlength="50" />
+            <span asp-validation-for="IngredientName" class="text-danger"></span>
+        </div>
+
+
+        <br />
+        <a asp-controller="Ingredient" asp-action="GetIngredients" class="btn grey">Tillbaka</a>
+        <button type="submit" class="btn green">Spara ingrediens</button>
+
+    </fieldset>
+</form>
+

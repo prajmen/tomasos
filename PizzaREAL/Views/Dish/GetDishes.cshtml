@@ -1,0 +1,125 @@
+﻿@model List<PizzaREAL.Models.Dish>
+
+@if (ViewBag.Dish != null)
+{
+    <div class="alert alert-dismissible green">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        @ViewBag.Dish
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            <h3>Maträtter</h3>
+        </th>
+        <th class="float-right extend">
+            <a asp-controller="Dish" asp-action="AddDish" class="float-left btn green">
+                Lägg till maträtt
+            </a>
+        </th>
+    </tr>
+</table>
+
+<h3>Pizzor</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">Beskrivning</th>
+            <th scope="col">Ingredienser</th>
+            <th scope="col">Pris</th>
+            <th scope="col">Ändra</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model.Where(d => d.DishTypeId == 1))
+        {
+            <tr>
+                <th scope="row">@dish.DishName</th>
+                <td>@dish.Description</td>
+                <td>
+                    @foreach (var ingridient in dish.Ingredients)
+                    {
+                        @ingridient.IngredientName @Html.Raw(", ")
+                    }
+                </td>
+                <td>@dish.Price</td>
+                <td>
+                    <a asp-controller="Dish" asp-action="UpdateDish" method="get" class="btn grey" asp-route-id=@dish.DishId>
+                        <i class="bi bi-pencil"></i> Ändra
+                    </a>
+                </td>
+            </tr>
+        }
+
+</table>
+
+<h3>Pasta</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">Beskrivning</th>
+            <th scope="col">Ingredienser</th>
+            <th scope="col">Pris</th>
+            <th scope="col">Ändra</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model.Where(d => d.DishTypeId == 2))
+        {
+            <tr>
+                <th scope="row">@dish.DishName</th>
+                <td>@dish.Description</td>
+                <td>
+                    @foreach (var ingridient in dish.Ingredients)
+                    {
+                        @ingridient.IngredientName @Html.Raw(", ")
+                    }
+                </td>
+                <td>@dish.Price</td>
+                <td>
+                    <a asp-controller="Dish" asp-action="UpdateDish" method="get" class="btn grey" asp-route-id=@dish.DishId>
+                        <i class="bi bi-pencil"></i> Ändra
+                    </a>
+                </td>
+
+            </tr>
+        }
+</table>
+
+<h3>Sallader</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">Beskrivning</th>
+            <th scope="col">Ingredienser</th>
+            <th scope="col">Pris</th>
+            <th scope="col">Ändra</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model.Where(d => d.DishTypeId == 3))
+        {
+            <tr>
+                <th scope="row">@dish.DishName</th>
+                <td>@dish.Description</td>
+                <td>
+                    @foreach (var ingridient in dish.Ingredients)
+                    {
+                        @ingridient.IngredientName @Html.Raw(", ")
+                    }
+                </td>
+                <td>@dish.Price</td>
+                <td>
+                    <a asp-controller="Dish" asp-action="UpdateDish" method="get" class="btn grey" asp-route-id=@dish.DishId>
+                        <i class="bi bi-pencil"></i> Ändra
+                    </a>
+                </td>
+
+            </tr>
+        }
+</table>
