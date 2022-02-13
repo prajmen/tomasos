@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaREAL.Models
 {
@@ -12,6 +13,7 @@ namespace PizzaREAL.Models
             Dishes = new HashSet<Dish>();
         }
 
+        [NotMapped]
         public int IngredientId { get; set; }
         [DisplayName("Namn")]
         [StringLength(20, ErrorMessage = "Namn på ingrediens kan inte vara mer än 20 tecken")]

@@ -60,7 +60,7 @@ namespace PizzaREAL.Controllers
                 viewModel.NewDish.Ingredients = _ingredientService.GetRange(viewModel.IngredientIds);
                 _dishService.UpdateDish(viewModel.NewDish);
 
-                ViewBag.Dish = "Maträtten las till i databasen";
+                ViewBag.Dish = "Maträtten uppdaterades!";
                 ModelState.Clear();
                 return View("GetDishes", _dishService.GetDishes());
             }

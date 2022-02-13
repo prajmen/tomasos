@@ -1,0 +1,137 @@
+﻿@model PizzaREAL.ViewModels.OrderViewModel
+
+@if (ViewBag.Order != null)
+{
+    <div class="alert alert-dismissible green">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        @ViewBag.Order
+    </div>
+}
+
+<div class="row g-5">
+    <div class="col-md-7 col-lg-8">
+        <h3>Pizzor</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Beskrivning</th>
+                    <th scope="col">Ingredienser</th>
+                    <th scope="col">Pris</th>
+                    <th scope="col">Beställ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 1))
+                {
+                    <tr>
+                        <th scope="row">@dish.DishName</th>
+                        <td>@dish.Description</td>
+                        <td>
+                            @foreach (var ingridient in dish.Ingredients)
+                            {
+                                @ingridient.IngredientName @Html.Raw(", ")
+                            }
+                        </td>
+                        <td>@dish.Price</td>
+                        <td>
+                            <a class="btn green" asp-controller="Order"
+                           asp-action="AddDishToOrder"
+                           asp-route-DishId=@dish.DishId
+                           data-ajax="true"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#cart">Beställ</a>
+
+                        </td>
+                    </tr>
+                }
+
+        </table>
+
+        <h3>Pasta</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Beskrivning</th>
+                    <th scope="col">Ingredienser</th>
+                    <th scope="col">Pris</th>
+                    <th scope="col">Beställ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 2))
+                {
+                    <tr>
+                        <th scope="row">@dish.DishName</th>
+                        <td>@dish.Description</td>
+                        <td>
+                            @foreach (var ingridient in dish.Ingredients)
+                            {
+                                @ingridient.IngredientName @Html.Raw(", ")
+                            }
+                        </td>
+                        <td>@dish.Price</td>
+                        <td>
+                            <a class="btn green" asp-controller="Order"
+                           asp-action="AddDishToOrder"
+                           asp-route-DishId=@dish.DishId
+                           data-ajax="true"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#cart">Beställ</a>
+                        </td>
+                    </tr>
+                }
+        </table>
+
+        <h3>Sallader</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Beskrivning</th>
+                    <th scope="col">Ingredienser</th>
+                    <th scope="col">Pris</th>
+                    <th scope="col">Beställ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 3))
+                {
+                    <tr>
+                        <th scope="row">@dish.DishName</th>
+                        <td>@dish.Description</td>
+                        <td>
+                            @foreach (var ingridient in dish.Ingredients)
+                            {
+                                @ingridient.IngredientName @Html.Raw(", ")
+                            }
+                        </td>
+                        <td>@dish.Price</td>
+                        <td>
+                            <a class="btn green" asp-controller="Order"
+                           asp-action="AddDishToOrder"
+                           asp-route-DishId=@dish.DishId
+                           data-ajax="true"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#cart">Beställ</a>
+                        </td>
+                    </tr>
+                }
+        </table>
+    </div>
+
+    <div class="col-md-5 col-lg-4 pl-1 order-md-last">
+        <div id="cart"></div>
+    </div>
+
+
+
+
+
+</div>
+
+

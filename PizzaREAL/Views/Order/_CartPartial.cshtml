@@ -1,0 +1,153 @@
+﻿@model PizzaREAL.ViewModels.OrderViewModel
+
+
+@if (Model.Order.OrderDishes.Count > 0)
+{
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+        Din order
+
+
+
+    </h4>
+    <ul class="list-group mb-3">
+
+
+
+        @foreach (var orderDish in Model.Order.OrderDishes)
+        {
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0">@orderDish.Dish.DishName</h6>
+                    <small class="text-muted">
+                        Antal:
+                        <a asp-controller="Order"
+                   asp-action="RemoveDishFromOrder"
+                   asp-route-DishId=@orderDish.DishId
+                   data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-update="#cart"><i class="bi bi-dash-circle-fill "></i></a>
+
+
+                        @orderDish.Amount
+                        <a asp-controller="Order"
+                   asp-action="AddDishToOrder"
+                   asp-route-DishId=@orderDish.DishId
+                   data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-update="#cart"><i class="bi bi-plus-circle-fill"></i></a>
+
+                    </small>
+                </div>
+                <span class="text-muted">@(orderDish.Dish.Price * orderDish.Amount):-</span>
+            </li>
+        }
+
+        @foreach (var role in Model.UserRoles)
+        {
+            if (role.Equals("Premium"))
+            {
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Premiumkund </h6>
+
+                    </div>
+                    <span class="text-muted">
+                        <p>
+                            <a class="btn btn-sm btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Läs mer om våra erbjudaden!
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                Som premiumkund får du 20% rabatt på din order ifall du köper 3 eller fler maträtter.
+                                Vid varje köp av en maträtt får du 10 poäng. När du får 100 poäng kan du växla in dina poäng mot den
+                                billigaste maträtten på ordern!
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                @if (Model.TotalDiscount > 0)
+                {
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Rabatt 20%</h6>
+                        </div>
+                        <span class="text-success">@Model.TotalDiscount:-</span>
+                    </li>
+                }
+
+
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Bonuspoäng: </h6>
+                        <small class="text-muted text-success">@Model.Order.Customer.BonusPoints</small>
+                    </div>
+                    @if (Model.IsBonusActivated == true)
+                    {
+                        <span class="text-success">@Model.BonusActivationDiscount:-</span>
+                    }
+                </li>
+
+
+
+
+                if (Model.IsBonusActivated)
+                {
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0"></h6>
+                        </div>
+                        <span class="text-success">
+                            <a class="btn btn-sm btn-secondary"
+               asp-controller="Order"
+               asp-action="DeactivateBonus"
+               data-ajax="true"
+               data-ajax-method="GET"
+               data-ajax-mode="replace"
+               data-ajax-update="#cart">Ångra</a>
+                        </span>
+                    </li>
+                }
+                else
+                {
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0"></h6>
+                        </div>
+                        <span class="text-success">
+                            <a class="btn btn-sm green"
+               asp-controller="Order"
+               asp-action="ActivateBonus"
+               data-ajax="true"
+               data-ajax-method="GET"
+               data-ajax-mode="replace"
+               data-ajax-update="#cart">Använd bonuspoäng</a>
+                        </span>
+                    </li>
+                }
+            }
+        }
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Totalt </span>
+            <strong>@Model.Order.TotalSum :-</strong>
+        </li>
+    </ul>
+    <form class="card p-2" asp-controller="Order" asp-action="AddOrderToContext" method="post">
+        <div class="input-group">
+            <button type="submit" class="btn green" type="submit">Beställ!</button>
+        </div>
+    </form>
+}
+
+
+
+
+
+
+
+
+
+

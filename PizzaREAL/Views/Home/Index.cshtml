@@ -1,94 +1,125 @@
-﻿@model List<PizzaREAL.Models.Dish>
+﻿@model PizzaREAL.ViewModels.IndexViewModel
 
-<h2>Mat med omtanke!</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h4>Mat med Omtanke</h4>
+            <br />
+            <p>Med 20års erfarenhet i branschen vet vi vad som är viktigt för våra kunder. 
+                All våran mat lagar vi med kärlek och färska ingredienser. 
+                Se våran meny med något för alla smaker här nedanför. För att beställa, 
+                var gor goda logga in eller registrera ett konto här brevid.
+                </p>
+        </div>
+        <div class="col">
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <fieldset>
+                    <legend>Logga in</legend>
 
-<p>Här under kan du se våran utsökta meny. </p>
-<p>Pastan och salladen är färsk, och våra pizzor är vedugnsbakade!</p>
-<p>Här under ser du våran meny, för att bestäla vår god och logga in (eller skapa ett konto).</p>
+                    <div class="form-group">
+                        <label asp-for="UserLogin.Username" class="form-label mt-4"></label>
+                        <input type="text" class="form-control" asp-for="UserLogin.Username" maxlength="20" />
+                        <span asp-validation-for="UserLogin.Username" class="text-danger"></span>
+                    </div>
 
-<h3>Pizzor</h3>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Namn</th>
-      <th scope="col">Beskrivning</th>
-      <th scope="col">Ingredienser</th>
-      <th scope="col">Pris</th>
-      <th scope="col">Beställ</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var dish in Model.Where(d => d.DishTypeId == 1))
-    {
-      <tr>
-          <th scope="row">@dish.DishName</th>
-          <td>@dish.Description</td>
-          <td>
-              @foreach (var ingridient in dish.Ingredients)
-              {
-                  @ingridient.IngredientName @Html.Raw(", ")
-              }
-          </td>
-          <td>@dish.Price</td>
-          <td>Beställ</td>
-      </tr>
-    }
-    
-</table>
+                    <div class="form-group">
+                        <label asp-for="UserLogin.Password" class="form-label mt-4"></label>
+                        <input type="password" class="form-control" asp-for="UserLogin.Password" maxlength="20" />
+                        <span asp-validation-for="UserLogin.Password" class="text-danger"></span>
+                    </div>
+                    <br />
 
-<h3>Pasta</h3>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Namn</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var dish in Model.Where(d => d.DishTypeId == 2))
-    {
-      <tr>
-          <th scope="row">@dish.DishName</th>
-          <td>@dish.Description</td>
-          <td>
-              @foreach (var ingridient in dish.Ingredients)
-              {
-                  @ingridient.IngredientName @Html.Raw(", ")
-              }
-          </td>
-          <td>@dish.Price</td>
-          <td>Beställ</td>
-      </tr>
-    }
-</table>
+                    <button type="submit" class="btn green">Logga in</button>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Registrera konto</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 
-<h3>Sallader</h3>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Namn</th>
-      <th scope="col">Beskrivning</th>
-      <th scope="col">Ingredienser</th>
-      <th scope="col">Pris</th>
-      <th scope="col">Beställ</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var dish in Model.Where(d => d.DishTypeId == 3))
-    {
-      <tr>
-          <th scope="row">@dish.DishName</th>
-          <td>@dish.Description</td>
-          <td>
-              @foreach (var ingridient in dish.Ingredients)
-              {
-                  @ingridient.IngredientName @Html.Raw(", ")
-              }
-          </td>
-          <td>@dish.Price</td>
-          <td>Beställ</td>
-      </tr>
-    }
-</table>
+
+    <h3>Pizzor</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Namn</th>
+                <th scope="col">Beskrivning</th>
+                <th scope="col">Ingredienser</th>
+                <th scope="col">Pris</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 1))
+            {
+                <tr>
+                    <th scope="row">@dish.DishName</th>
+                    <td>@dish.Description</td>
+                    <td>
+                        @foreach (var ingridient in dish.Ingredients)
+                        {
+                            @ingridient.IngredientName @Html.Raw(", ")
+                        }
+                    </td>
+                    <td>@dish.Price</td>
+                </tr>
+            }
+
+
+    </table>
+
+    <h3>Pasta</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Namn</th>
+                <th scope="col">Beskrivning</th>
+                <th scope="col">Ingredienser</th>
+                <th scope="col">Pris</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 2))
+            {
+                <tr>
+                    <th scope="row">@dish.DishName</th>
+                    <td>@dish.Description</td>
+                    <td>
+                        @foreach (var ingridient in dish.Ingredients)
+                        {
+                            @ingridient.IngredientName @Html.Raw(", ")
+                        }
+                    </td>
+                    <td>@dish.Price</td>
+                </tr>
+            }
+
+
+    </table>
+
+    <h3>Sallad</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Namn</th>
+                <th scope="col">Beskrivning</th>
+                <th scope="col">Ingredienser</th>
+                <th scope="col">Pris</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model.Dishes.Where(d => d.DishTypeId == 3))
+            {
+                <tr>
+                    <th scope="row">@dish.DishName</th>
+                    <td>@dish.Description</td>
+                    <td>
+                        @foreach (var ingridient in dish.Ingredients)
+                        {
+                            @ingridient.IngredientName @Html.Raw(", ")
+                        }
+                    </td>
+                    <td>@dish.Price</td>
+                </tr>
+            }
+
+
+    </table>

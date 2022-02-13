@@ -12,7 +12,7 @@ namespace PizzaREAL.Models
 
         public int CustomerId { get; set; }
         public string AspNetUserId { get; set; } = null!;
-        public int BonusPoints { get; set; }
+        public int? BonusPoints { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }

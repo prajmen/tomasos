@@ -39,12 +39,12 @@
             <div class="row">
                 <div class="col-sm">
                     <label asp-for="NewDish.Description" class="form-label mt-4"></label>
-                    <textarea style="resize:none" class="form-control" asp-for="NewDish.Description" rows="50"></textarea>
+                    <textarea style="resize:none" class="form-control" asp-for="NewDish.Description" rows="9"></textarea>
                     <span asp-validation-for="NewDish.Description" class="text-danger"></span>
                 </div>
                 <div class="col-sm">
                     <label class="form-label mt-4">Ingredienser</label>
-                    <select multiple class="form-control" asp-for="IngredientIds" rows="50">
+                    <select size="10" multiple class="form-control" asp-for="IngredientIds" >
 
                         @foreach (var ingredient in Model.Ingredients)
                         {

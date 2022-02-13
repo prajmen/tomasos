@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaREAL.Models
 {
@@ -12,7 +14,7 @@ namespace PizzaREAL.Models
             OrderDishes = new HashSet<OrderDish>();
             Ingredients = new HashSet<Ingredient>();
         }
-
+        [NotMapped]
         public int DishId { get; set; }
 
         [DisplayName("Namn")]
@@ -27,6 +29,8 @@ namespace PizzaREAL.Models
 
         [DisplayName("Pris")]
         [Required(ErrorMessage = "Pris är obligatoriskt")]
+        [Range(0, 1000,
+        ErrorMessage = "Pris måste vara mellan 0-1000")]
         public int Price { get; set; }
 
         [DisplayName("Type")]
@@ -36,6 +40,7 @@ namespace PizzaREAL.Models
         public virtual DishType? DishType { get; set; } = null!;
         public virtual ICollection<OrderDish> OrderDishes { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Ingredient> Ingredients { get; set; }
     }
 }

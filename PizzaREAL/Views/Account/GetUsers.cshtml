@@ -1,0 +1,108 @@
+﻿@model PizzaREAL.ViewModels.AccountViewModel
+
+@if (ViewBag.Account != null)
+{
+    <div class="alert alert-dismissible green">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        @ViewBag.Account
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            <h3>Konton</h3>
+        </th>
+       
+    </tr>
+</table>
+
+<h3>Standard konton</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ändra kontotyp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.StandardUsers)
+        {
+            <tr>
+                <th scope="row">@user.Name</th>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-controller="Account" asp-action="UpdateToPremium" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till premium
+                    </a>
+                    <a asp-controller="Account" asp-action="UpdateToAdmin" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till admin
+                    </a>
+                </td>
+            </tr>
+        }
+
+</table>
+
+<h3>Premium konton</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ändra kontotyp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.PremiumUsers)
+        {
+            <tr>
+                <th scope="row">@user.Name</th>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-controller="Account" asp-action="UpdateToStandard" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till standard
+                    </a>
+                    <a asp-controller="Account" asp-action="UpdateToAdmin" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till admin
+                    </a>
+                </td>
+            </tr>
+        }
+
+</table>
+
+<h3>Admin konton</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ändra kontotyp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.AdminUsers)
+        {
+            <tr>
+                <th scope="row">@user.Name</th>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-controller="Account" asp-action="UpdateToStandard" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till standard
+                    </a>
+                    <a asp-controller="Account" asp-action="UpdateToPremium" method="get" class="btn grey" asp-route-id=@user.Id>
+                        <i class="bi bi-pencil"></i> Ändra till premium
+                    </a>
+                </td>
+            </tr>
+        }
+
+</table>

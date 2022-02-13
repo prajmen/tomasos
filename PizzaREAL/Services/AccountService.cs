@@ -7,11 +7,14 @@ namespace PizzaREAL.Services
 {
     public interface IAccountService
     {
-        List<ApplicationUser> ReadAll();
+        AccountViewModel GetAccountViewModel();
         ApplicationUser GetById(string id);
+
+        Customer GetCustomerByUserID(string id);
         Task<bool> CreateAsync(UserRegistrationRequest request);
         Task<bool> UpdateAsync(UserUpdateRequest model, ApplicationUser user);
         Task<bool> DeleteAsync(ApplicationUser user);
+        Task<bool> UpdateRoleAsync(string userId, string newRoleId);
         UserUpdateRequest GetUserUpdateRequest(ApplicationUser user);
 
     }
@@ -21,9 +24,7 @@ namespace PizzaREAL.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly PizzaDbContext _context;
 
-        public AccountService(SignInManager<ApplicationUser> signInManager, 
-                                            UserManager<ApplicationUser> userManager, 
-                                            PizzaDbContext context)
+        public AccountService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, PizzaDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -86,6 +87,11 @@ namespace PizzaREAL.Services
             throw new NotImplementedException();
         }
 
+        public Customer GetCustomerByUserID(string id)
+        {
+            return _context.Customers.Where(c => c.AspNetUserId == id).FirstOrDefault();
+        }
+
         public UserUpdateRequest GetUserUpdateRequest(ApplicationUser user)
         {
             UserUpdateRequest request = new UserUpdateRequest()
@@ -103,9 +109,17 @@ namespace PizzaREAL.Services
 
         }
 
-        public List<ApplicationUser> ReadAll()
+        public AccountViewModel GetAccountViewModel()
         {
-            throw new NotImplementedException();
+            AccountViewModel model = new AccountViewModel()
+            {
+                StandardUsers = _userManager.GetUsersInRoleAsync("Standard").Result.ToList(),
+                PremiumUsers = _userManager.GetUsersInRoleAsync("Premium").Result.ToList(),
+                AdminUsers = _userManager.GetUsersInRoleAsync("Admin").Result.ToList(),
+            };
+
+            return model;
+
         }
 
         public async Task<bool> UpdateAsync(UserUpdateRequest model, ApplicationUser user)
@@ -131,6 +145,24 @@ namespace PizzaREAL.Services
             }
 
             return false;
+        }
+
+        public async Task<bool> UpdateRoleAsync(string userId, string newRoleId)
+        {
+            var user = _userManager.FindByIdAsync(userId);
+            var oldRole = _userManager.GetRolesAsync(await user).Result.FirstOrDefault();
+
+            await _userManager.RemoveFromRoleAsync(await user, oldRole);
+
+            var result = await _userManager.AddToRoleAsync(await user, newRoleId);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+
+            return true;
         }
     }
 }

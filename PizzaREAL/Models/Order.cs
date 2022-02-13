@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaREAL.Models
 {
@@ -9,7 +10,7 @@ namespace PizzaREAL.Models
         {
             OrderDishes = new HashSet<OrderDish>();
         }
-
+        [NotMapped]
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public int TotalSum { get; set; }

@@ -21,16 +21,70 @@ namespace PizzaREAL.Controllers
             _accountService = accountService;
         }
 
+        [Authorize]
+        public IActionResult GetUsers()
+        {
+            return View(_accountService.GetAccountViewModel());
+        }
+
+        [Authorize]
+        public async Task<IActionResult> UpdateToPremium(string id)
+        {
+            if (await _accountService.UpdateRoleAsync(id, "Premium"))
+            {
+                ViewBag.Account = "Kontot uppdaterades";
+            }
+
+            else
+            {
+                ViewBag.Account = "Något gick fel var god försök igen";
+            }
+            
+            return View("GetUsers", _accountService.GetAccountViewModel());
+        }
+
+        [Authorize]
+        public async Task<IActionResult> UpdateToStandard(string id)
+        {
+            if (await _accountService.UpdateRoleAsync(id, "Standard"))
+            {
+                ViewBag.Account = "Kontot uppdaterades";
+            }
+
+            else
+            {
+                ViewBag.Account = "Något gick fel var god försök igen";
+            }
+
+            return View("GetUsers", _accountService.GetAccountViewModel());
+        }
+        [Authorize]
+        public async Task<IActionResult> UpdateToAdmin(string id)
+        {
+            if (await _accountService.UpdateRoleAsync(id, "Admin"))
+            {
+                ViewBag.Account = "Kontot uppdaterades";
+            }
+
+            else
+            {
+                ViewBag.Account = "Något gick fel var god försök igen";
+            }
+
+            return View("GetUsers", _accountService.GetAccountViewModel());
+        }
+
+
         public IActionResult LogIn()
         {
-            return View();
+            return View("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogIn(UserLoginRequest loginUser)
+        public async Task<IActionResult> LogIn(IndexViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(loginUser.Username, loginUser.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserLogin.Username, model.UserLogin.Password, false, false);
 
             if (result.Succeeded)
             {
@@ -46,8 +100,8 @@ namespace PizzaREAL.Controllers
         [Authorize]
         public async Task<IActionResult> LogOff()
         {
+            HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
-
 
             return RedirectToAction("Index", "Home");
         }
@@ -55,6 +109,7 @@ namespace PizzaREAL.Controllers
 
         public IActionResult Register()
         {
+
             return View();
         }
 
@@ -64,8 +119,8 @@ namespace PizzaREAL.Controllers
         {
             if (ModelState.IsValid)
             {
-             
-                if(await _accountService.CreateAsync(model))
+
+                if (await _accountService.CreateAsync(model))
                 {
                     ViewBag.Message = "Registreringen lyckades";
                     ModelState.Clear();
@@ -117,7 +172,7 @@ namespace PizzaREAL.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if(await _accountService.DeleteAsync(user))
+            if (await _accountService.DeleteAsync(user))
             {
                 await _signInManager.SignOutAsync();
                 ModelState.Clear();
